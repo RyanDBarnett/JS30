@@ -39,49 +39,47 @@
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
-    const inventorsSortedByBirthYear = inventors.sort((inventorA, inventorB) => {
-      return inventorA.year - inventorB.year;
-    });
+    const inventorsSortedByBirthYear = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
     const totalYearsLived = inventors.reduce((total, curInventor) => {
-      total += curInventor.passed - curInventor.year;
-      return total;
+      return total + (curInventor.passed - curInventor.year);
     }, 0);
 
     // 5. Sort the inventors by years lived
-    const inventorsSortedByYearsLived = inventors.sort((inventorA, inventorB) => {
-      const aInventorAge = inventorA.passed - inventorA.year;
-      const bInventorAge = inventorB.passed - inventorB.year;
-      return aInventorAge - bInventorAge;
+    const inventorsSortedByYearsLived = inventors.sort((a, b) => {
+      const aAge = a.passed - a.year;
+      const bAge = b.passed - b.year;
+      return aAge > bAge ? -1 : 1;
     });
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+    // const category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a'));
+    // const de = links
+    //   .map(link => link.textContent)
+    //   .filter(streetName => streetName.includes('de'));
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-    const peopleSortedByLastName = people.sort((personA, personB) => {
-      const lastA = personA.split(', ')[1];
-      const lastB = personB.split(', ')[1];
-      if (lastA < lastB) {
-        return -1;
-      }
-      if (lastA > lastB) {
-        return 1;
-      }
-      return 0;
+    const peopleSortedByLastName = people.sort((a, b) => {
+      const lastA = a.split(', ')[0];
+      const lastB = b.split(', ')[0];
+      return lastA < lastB ? -1 : 1;
     });
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
     const sumDataInstances = data.reduce((acc, cur) => {
-      acc[cur] += 1;
+      if (!acc[cur]) {
+        acc[cur] = 0;
+      }
+      acc[cur]++;
       return acc;
-    }, {car: 0, truck: 0, bike: 0, van: 0, walk: 0});
+    }, {});
 
   </script>
 </body>
